@@ -1,17 +1,21 @@
 package framework;
 
-import java.awt.Color;
 import java.awt.Graphics;
+
+import game.Game;
 
 public class Main {
 
 	private Draw draw;
 	private Logic logic;
 	
+	private Game game;
+	
 	public Main() {
 		draw = new Draw(this);
 		logic = new Logic(this, draw);
 		
+		game = new Game();
 	}
 	public static void main(String args[]) {
 		System.out.printf("Carregando...\n");
@@ -24,24 +28,12 @@ public class Main {
 		
 	}
 	
-	
-	int x = 0;
-	int y = 0;
 	public void step() {
-		if (Input.left) {
-			x--;
-		}else if(Input.right) {
-			x++;
-		}else if(Input.down) {
-			y++;
-		}else if(Input.up) {
-			y--;
-		}
+		game.step();
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect(x, y, 16, 16);
+		game.render(g);
 	}
 	
 }

@@ -1,9 +1,26 @@
 package tiles;
 
+import java.awt.Graphics;
+
 public class Tile {
 
-	int x, y;
+	protected int x, y;
+	
+	protected int width, height;
+	
+	protected boolean visible;
+	protected boolean collide;
+	
+	public Tile(int xx, int yy) {
+		x = xx;
+		y = yy;
+	}
 	
 	
+	public void render(Graphics g) {
+		if (visible) {
+			g.fillRect(x, y, width, height);
+		}
+	}
 	
 }
