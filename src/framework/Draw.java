@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -41,6 +43,27 @@ public class Draw extends Canvas{
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {	
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				Input.left = false;
+				Input.right = false;
+				Input.down = false;
+				Input.up = false;
+				Input.esc = false;
+				Input.space = false;
+				Input.a = false;
+				Input.s = false;
+				
+			}
+			
+		});
 		
 		this.addKeyListener(new Input());
 		this.requestFocus();

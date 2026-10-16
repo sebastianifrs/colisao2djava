@@ -35,6 +35,28 @@ public class Room {
 		
 	}
 	
+	
+	public boolean isFree(int nextx, int nexty) {
+		
+		int tile1 = nextx/16 + (nexty/16 * width);
+		
+		int tile2 = (nextx+15)/16 + (nexty/16 * width);
+			
+		int tile3 = nextx/16 + ((nexty+15)/16* width);
+
+		int tile4 = (nextx+15)/16 + ((nexty+15)/16 * width);
+	
+	    if (nextx / 16 < 0 || (nextx + 15) / 16 >= width || nexty / 16 < 0 || (nexty + 15) / 16 >= height) {
+	        return false; 
+	    }
+		
+		if (tiles[tile1] instanceof WallTile || tiles[tile2] instanceof WallTile || tiles[tile3] instanceof WallTile || tiles[tile4] instanceof WallTile) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public void render(Graphics g) {
 		for (Tile t : tiles) {
 			if (t == null) continue;

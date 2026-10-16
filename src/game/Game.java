@@ -20,9 +20,10 @@ public class Game {
 	
 	public void loadRoom() {
 		entities = new ArrayList<Entity>();
-		player = new Player(0,0);
-		
 		room = new Room(0);
+		player = new Player(0,0, room);
+		
+		
 		
 		entities.add(player);
 	}
