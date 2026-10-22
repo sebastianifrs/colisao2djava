@@ -1,19 +1,28 @@
 package game;
 
 import java.awt.Graphics;
+import java.util.List;
 
+import entitys.Entity;
 import material.RoomList;
 import tiles.Tile;
 import tiles.WallTile;
 
 public class Room {
-
+		
+	private List<Entity> entities;
+	private Camera camera;
+	
 	public int width;
 	public int height;
 	
+	public int playerSpawnX, playerSpawnY;
+	
 	private Tile[] tiles;
 	
-	public Room(int id) {
+	public Room(int id, List<Entity> ent) {
+		entities = ent;
+		
 		height = RoomList.rooms[id].length;
 		width = RoomList.rooms[id][0].length;
 		
@@ -27,6 +36,10 @@ public class Room {
 				case 1:
 					tiles[x + (y * width)] = new WallTile(x*16, y*16);
 					break;
+				case 2:
+					playerSpawnX = x*16;
+					playerSpawnY = y*16;
+					break;
 				}
 			}
 			
@@ -35,6 +48,10 @@ public class Room {
 		
 	}
 	
+	
+	public void setCamera(Camera c) {
+		camera = c;
+	}
 	
 	public boolean isFree(int nextx, int nexty) {
 		
@@ -47,7 +64,7 @@ public class Room {
 		int tile4 = (nextx+15)/16 + ((nexty+15)/16 * width);
 	
 	    if (nextx / 16 < 0 || (nextx + 15) / 16 >= width || nexty / 16 < 0 || (nexty + 15) / 16 >= height) {
-	        return false; 
+	        return true; 
 	    }
 		
 		if (tiles[tile1] instanceof WallTile || tiles[tile2] instanceof WallTile || tiles[tile3] instanceof WallTile || tiles[tile4] instanceof WallTile) {
@@ -60,7 +77,13 @@ public class Room {
 	public void render(Graphics g) {
 		for (Tile t : tiles) {
 			if (t == null) continue;
-			t.render(g);
+			
+			if (camera != null) { 
+				t.render(g, camera.x, camera.y);
+			} else {
+				t.render(g, 0, 0);
+			}
+			
 		}
 	}
 	

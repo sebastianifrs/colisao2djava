@@ -4,12 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import framework.Input;
+import game.Camera;
 import game.Room;
-import tiles.WallTile;
 
 public class Player extends Entity {
 
-	
 	private Room room;
 	
 	private double jumpForce = 4.0;
@@ -25,8 +24,6 @@ public class Player extends Entity {
 		
 		room = r;
 	}
-	
-	
 	
 	public void movement() {
 		if (Input.right && !Input.left) {
@@ -72,9 +69,9 @@ public class Player extends Entity {
 		y+=vspeed;
 	}
 	
-	public void render(Graphics g) {
+	public void render(Graphics g, int cameraX, int cameraY) {
 		g.setColor(Color.red);
-		g.fillRect((int)x, (int)y, 16, 16);
+		g.fillRect((int)x - cameraX, (int)y - cameraY, 16, 16);
 	}
 
 }

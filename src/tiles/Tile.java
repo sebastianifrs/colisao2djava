@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 public class Tile {
 
+	
 	protected int x, y;
 	
 	protected int width, height;
@@ -17,9 +18,9 @@ public class Tile {
 	}
 	
 	
-	public void render(Graphics g) {
+	public void render(Graphics g, int cameraX, int cameraY) {
 		if (visible) {
-			g.fillRect(x, y, width, height);
+			g.fillRect(x - cameraX, y - cameraY, width, height);
 		}
 	}
 	

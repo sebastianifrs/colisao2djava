@@ -10,28 +10,34 @@ import entitys.Player;
 public class Game {
 
 	
-	private Player player;
+	public Player player;
 	private List<Entity> entities;
-	private Room room;
+	public Room room;
+	public Camera camera;
+	
 	
 	public Game() {
 		loadRoom();
 	}
 	
 	public void loadRoom() {
+		room = new Room(0, entities);
 		entities = new ArrayList<Entity>();
-		room = new Room(0);
-		player = new Player(0,0, room);
-		
-		
-		
+		player = new Player(room.playerSpawnX,room.playerSpawnY, room);
 		entities.add(player);
+	
+		
+		camera = new Camera(room, player);
+		room.setCamera(camera);
 	}
 	
 	public void step() {
+		
 		for (Entity e : entities) {
 			e.step();
 		}
+		camera.step();
+		
 	}
 	
 	public void render(Graphics g) {
@@ -39,7 +45,7 @@ public class Game {
 		room.render(g);
 		
 		for (Entity e : entities) {
-			e.render(g);
+			e.render(g, camera.x, camera.y);
 		}
 	}
 	
